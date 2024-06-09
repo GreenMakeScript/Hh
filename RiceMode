@@ -1,0 +1,216 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "RiceMode | Da Hood", HidePremium = false, IntroEnabled = true , IntroText = "RiceMode", SaveConfig = true, ConfigFolder = "RiceMode"})
+
+--Tab
+local MainTab = Window:MakeTab({
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+local TeleTab = Window:MakeTab({
+    Name = "Teleport",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+--Button
+MainTab:AddButton({
+    Name = "AntiLock",
+    Callback = function(Value)
+    getgenv().Sky = true 
+getgenv().SkyAmount = 9999
+
+game:GetService("RunService").heartbeat:Connect(function()
+    if getgenv().Sky ~= false then 
+    local vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,      getgenv().SkyAmount,0) 
+    game:GetService("RunService").RenderStepped:Wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = vel
+    end 
+end)
+    end
+})
+MainTab:AddButton({
+    Name = "AimLock",
+    Callback = function(Value)
+    local Aiming = loadstring(game:HttpGet("https://pastebin.com/raw/wy4vTkmn"))()
+Aiming.TeamCheck(false)
+
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+local LocalPlayer = Players.LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+local CurrentCamera = Workspace.CurrentCamera
+
+local DaHoodSettings = {
+    SilentAim = true,
+    AimLock = false,
+    Prediction = 0.138,
+    AimLockKeybind = Enum.KeyCode.P
+}
+getgenv().DaHoodSettings = DaHoodSettings
+
+function Aiming.Check()
+    if not (Aiming.Enabled == true and Aiming.Selected ~= LocalPlayer and Aiming.SelectedPart ~= nil) then
+        return false
+    end
+
+    local Character = Aiming.Character(Aiming.Selected)
+    local KOd = Character:WaitForChild("BodyEffects")["K.O"].Value
+    local Grabbed = Character:FindFirstChild("GRABBING_CONSTRAINT") ~= nil
+
+    if (KOd or Grabbed) then
+        return false
+    end
+
+    return true
+end
+
+local __index
+__index = hookmetamethod(game, "__index", function(t, k)
+    if (t:IsA("Mouse") and (k == "Hit" or k == "Target") and Aiming.Check()) then
+        local SelectedPart = Aiming.SelectedPart
+
+        if (DaHoodSettings.SilentAim and (k == "Hit" or k == "Target")) then
+            local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
+
+            return (k == "Hit" and Hit or SelectedPart)
+        end
+    end
+
+    return __index(t, k)
+end)
+
+RunService:BindToRenderStep("AimLock", 0, function()
+    if (DaHoodSettings.AimLock and Aiming.Check() and UserInputService:IsKeyDown(DaHoodSettings.AimLockKeybind)) then
+        local SelectedPart = Aiming.SelectedPart
+
+        local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
+
+        CurrentCamera.CFrame = CFrame.lookAt(CurrentCamera.CFrame.Position, Hit.Position)
+    end
+    end)
+    end
+})
+TeleTab:AddButton({
+    Name = "Da Bank",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-452.88092, 39.0216522, -284.679474, -0.00115810451, 2.26333317e-08, -0.999999344, -1.35047564e-08, 1, 2.26489867e-08, 0.999999344, 1.35309772e-08, -0.00115810451)
+    end
+})
+TeleTab:AddButton({
+    Name = "GunShop(AK47)",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-582.617432, 8.31477833, -738.56012, -0.0910864323, -1.04409018e-07, -0.995842993, -2.213093e-08, 1, -1.02820614e-07, 0.995842993, 1.2673369e-08, -0.0910864323)
+    end
+})
+TeleTab:AddButton({
+    Name = "Casino",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-866.04541, 21.7999554, -137.934448, 0.999966979, -2.56539661e-08, -0.00812477712, 2.55934136e-08, 1, -7.55674812e-09, 0.00812477712, 7.34855821e-09, 0.999966979)
+    end
+})
+TeleTab:AddButton({
+    Name = "UFO",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(79.6669388, 138.999954, -663.899292, -0.95252347, 4.73236135e-08, -0.304465264, 7.12876016e-08, 1, -6.7592282e-08, 0.304465264, -8.60878302e-08, -0.95252347)
+    end
+})
+TeleTab:AddButton({
+    Name = "GunShop(P90)",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(479.891357, 48.070488, -623.76593, -0.0815929547, -2.97626706e-08, -0.996665716, -7.86535921e-08, 1, -2.34231905e-08, 0.996665716, 7.64801698e-08, -0.0815929547)
+    end
+})
+TeleTab:AddButton({
+    Name = "Sewer",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(113.287064, -26.7500305, -272.344513, -0.988844573, -3.34239765e-08, -0.148951009, -2.83205868e-08, 1, -3.63832307e-08, 0.148951009, -3.17589794e-08, -0.988844573)
+    end
+})
+TeleTab:AddButton({
+    Name = "Church",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(206.084152, 23.779995, -32.040699, 0.999714196, 8.38921999e-09, -0.0239074565, -9.17370979e-09, 1, -3.27039125e-08, 0.0239074565, 3.2913885e-08, 0.9997141967)
+    end
+})
+TeleTab:AddButton({
+    Name = "Gas Station",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(592.411499, 49.0000381, -253.618378, 0.211082786, 8.58059295e-08, -0.977468193, -7.17603612e-08, 1, 7.2287321e-08, 0.977468193, 5.48848611e-08, 0.211082786)
+    end
+})
+TeleTab:AddButton({
+    Name = "Drumgun",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1181.04858, 28.3800068, -520.341248, -0.806095004, -4.01505886e-08, 0.591786146, -8.50936388e-09, 1, 5.62555122e-08, -0.591786146, 4.03115656e-08, -0.806095004)
+    end
+})
+TeleTab:AddButton({
+    Name = "Basketball",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-930.72052, 21.9998245, -481.638336, -0.0463728532, 3.08173126e-10, -0.998924196, -2.54776165e-11, 1, 3.09687748e-10, 0.998924196, 3.98113105e-11, -0.0463728532)
+    end
+})
+TeleTab:AddButton({
+    Name = "Food UpHill",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(298.42569, 49.2826538, -614.055542, 0.994033694, -2.16039631e-08, 0.109073386, 1.85369995e-08, 1, 2.9132325e-08, -0.109073386, -2.69366183e-08, 0.994033694)
+    end
+})
+TeleTab:AddButton({
+    Name = "Food DownHill",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-332.186615, 23.682642, -297.568848, -0.0813886598, -8.29086346e-08, -0.996682465, 1.99743972e-08, 1, -8.48157029e-08, 0.996682465, -2.68111666e-08, -0.0813886598)
+    end
+})
+TeleTab:AddButton({
+    Name = "Park",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(341.465088, 47.9999847, -386.067291, 0.724442661, 7.22675821e-08, -0.689335048, -2.16305107e-08, 1, 8.21045134e-08, 0.689335048, -4.45693402e-08, 0.724442661)
+    end
+})
+TeleTab:AddButton({
+    Name = "Taco Shop",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(585.199646, 51.0576782, -464.755463, -0.397706807, -9.35384961e-08, -0.917512536, -7.31956762e-09, 1, -9.87751676e-08, 0.917512536, -3.25677618e-08, -0.397706807)
+    end
+})
+TeleTab:AddButton({
+    Name = "Fitness",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-76.2402573, 22.700285, -635.430481, 0.999967039, -5.75691779e-08, -0.00811906252, 5.75964485e-08, 1, 3.12497117e-09, 0.00811906252, -3.59249719e-09, 0.999967039)
+    end
+})
+TeleTab:AddButton({
+    Name = "School",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-536.807068, 21.8749943, 278.094116, -0.959436953, -9.06610254e-09, 0.281923234, 1.40460736e-08, 1, 7.99594417e-08, -0.281923234, 8.06759601e-08, -0.959436953)
+    end
+})
+TeleTab:AddButton({
+    Name = "Police Station",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-266.017273, 21.7999573, -94.5513306, 0.990098059, 4.79011e-08, 0.140377298, -5.56644828e-08, 1, 5.13772527e-08, -0.140377298, -5.86825486e-08, 0.990098059)
+    end
+})
+TeleTab:AddButton({
+    Name = "Fire Station",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-151.902374, 53.8106003, -89.6676331, 0.998288214, 6.9593014e-08, 0.0584865287, -6.84520245e-08, 1, -2.15120242e-08, -0.0584865287, 1.74716792e-08, 0.998288214)
+    end
+})
+TeleTab:AddButton({
+    Name = "Boxing",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-240.901321, 22.5704594, -1119.66089, -0.110461064, -3.32946719e-08, 0.993880451, -1.92341485e-08, 1, 3.13619672e-08, -0.993880451, -1.56521676e-08, -0.110461064)
+    end
+})
+TeleTab:AddButton({
+    Name = "Military",
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(49.4625854, 25.2549973, -868.025513, 0.112435944, 2.34444002e-08, -0.99365896, 3.57535903e-08, 1, 2.76396523e-08, 0.99365896, -3.8634564e-08, 0.112435944)
+    end
+})
